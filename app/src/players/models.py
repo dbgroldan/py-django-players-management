@@ -7,13 +7,14 @@ class Player(models.Model):
         ('F', 'Female'),
         ('M', 'Male')
     )
-
+    ident = models.CharField(max_length=15, primary_key=True, verbose_name='Identificacion')
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, unique=True)
     gender = models.CharField(max_length=1, choices=GENDER_OPTIONS)
     date_joined = models.DateField(default=datetime.now, verbose_name='Sign Date')
     birth_day = models.DateTimeField(verbose_name='Birth Date')
-    address = models.CharField(max_length=150, verbose_name='Address', null=True) # unique=True
-    description = models.TextField(verbose_name='Description', null=True)
+    address = models.CharField(max_length=150, verbose_name='Address', null=True) 
+    description = models.TextField( null=True, verbose_name='Description')
     image = models.ImageField(upload_to='avatars/%Y/%m/%d', null=True, verbose_name='Avatar')
     compet_certificate = models.FileField(upload_to='certifications/%Y/%m/%d', null=True, verbose_name='Competition Certificates')
     active = models.BooleanField(default=True, verbose_name='Active Player')
@@ -22,10 +23,10 @@ class Player(models.Model):
         verbose_name = 'Player'
         verbose_name_plural = 'Players'
         db_table = 'player'
-        ordering = ['id']
+        ordering = ['ident']
 
     def __str__(self):
-        return '{} {}'.format(self.first_name, self.last_name)
+        return self.ident
 
 
 class Telephone(models.Model):
@@ -40,26 +41,28 @@ class Telephone(models.Model):
         ordering = ['user_id']
 
     def __str__(self):
-        return 'User {} ->+{} {}'.format(self.user_id, self.country_code, self.telephone)
+        return self.telephone
 
 
-class Solved_Cube(models.Model):
+class Cube(models.Model):
     cube_id = models.AutoField(primary_key=True)
     cube_name = models.CharField(max_length=150, verbose_name='Cube Name')
-    cube_image = models.ImageField(null=True, verbose_name='Cube Image')
+    cube_image = models.ImageField(null=True, verbose_name='Cube Image', upload_to='cubes/%Y/%m/%d')
     cube_description = models.TextField(null=True, verbose_name='Description')
     users = models.ManyToManyField(Player)
 
     class Meta:
         verbose_name = 'Cube'
         verbose_name_plural = 'Cubes'
-        db_table = 'solved_cube'
+        db_table = 'cube'
         ordering = ['cube_name']
 
         def __str__(self):
-            return self.cube_name
+            return self.cube_id
 
-class PlayerReview(Player, Solved_Cube):
+class PlayerReview(Player, Cube):
+    """ Create model than containing aal info from other models,
+    in DB is a break table from other models"""
     headline = models.CharField(max_length=200)
     date_publication = models.DateField(default=datetime.now)
     abstract = models.TextField(null=True)

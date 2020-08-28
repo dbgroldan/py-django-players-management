@@ -1,0 +1,32 @@
+{% extends 'partial/layout.html' %}
+{% block title %} List Rubik Cubes{% endblock title %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for cube in object_list %}
+    <tr>
+        <td>{{ cube.cube_id }}</td>
+        <td>{{ cube.cube_image }}</td>
+        <td>{{ cube.cube_name }}</td>
+        <td>{{ cube.cube_description }}</td>
+        <td>
+            <button type="button" onclick="window.location.href='{% url 'detail_cube' id=cube.cube_id %}'">Show</button>
+            <button type="button" onclick="window.location.href='{% url 'update_cube' pk=cube.cube_id %}'">Update</button>
+            <button type="button" onclick="window.location.href='{% url 'delete_cube' pk=cube.cube_id %}'">Delete</button>
+        </td>
+    </tr>
+    {% empty %}
+    <li>No cubes yet</li>
+    {% endfor %}
+</table>
+{% endblock content %}

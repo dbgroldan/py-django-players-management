@@ -1,0 +1,10 @@
+{% extends 'partial/layout.html' %}
+{% block title %} Delete Cube {% endblock title %}
+
+{% block content %}
+<form method="post">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object.cube_name }}"?</p>
+    <input type="submit" value="Confirm">
+    <a href="{% url 'list_cubes' %}">Cancelar</a>
+</form>
+{% endblock content %}

@@ -1,0 +1,10 @@
+{% extends 'partial/layout.html' %}
+{% block title %}Cube Update{% endblock title %}
+{% block content %}
+<h2>Update Cube</h2>
+<form enctype="multipart/form-data" method="post" action="{% url 'update_cube' pk=object.cube_id %}" %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" >Update</button>
+</form>
+{% endblock content %}

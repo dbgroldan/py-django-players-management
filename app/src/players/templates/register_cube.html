@@ -1,0 +1,10 @@
+{% extends 'partial/layout.html' %}
+{% block title %}Register Cube{% endblock title %}
+{% block content %}
+<h2>Register Cube</h2>
+<form enctype="multipart/form-data" method="post" action="{% url 'register_cube' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" >Register</button>
+</form>
+{% endblock content %}

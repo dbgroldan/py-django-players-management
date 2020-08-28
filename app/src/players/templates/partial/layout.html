@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Rubik's Player Info</title>
+    </head>
+    <body>
+        {% load static  %}
+        <img src="{% static 'icon.png' %}">
+        <h1>Control Page Rubik's Players</h1>
+        <main>
+            {% block content %}
+            {% endblock content %}
+        </main>
+    </body>
+</html>

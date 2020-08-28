@@ -1,0 +1,10 @@
+{% extends 'partial/layout.html' %}
+{% block title %} Cube Detail {% endblock title  %}
+{% block content %}
+<h2>Cube Details</h2>
+<h3>{{ cube.cube_name }}</h3>
+
+<img src="{{ cube.cube_image.url }}" alt="rubik image"></img>
+<p><b>Descripcion: </b> {{ cube.cube_description }}<p>
+
+{% endblock content %}

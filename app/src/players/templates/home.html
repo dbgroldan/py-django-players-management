@@ -1,0 +1,33 @@
+{% extends 'partial/layout.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+
+{% if player.is_authenticated %}
+Hi {{ player.username }}
+<p><a href="{% url 'logout' %}">Log Out</a> </p>
+{% else %}
+<p>You could to enter to our control system of rubik's player, even watch the rubik cubes.</p>
+<h3>Control Players</h3>
+<button type="button" onclick="window.location.href='{% url 'login' %}'">Log In</button>
+<button type="button" onclick="window.location.href='{% url 'signup' %}'">Sign Up</button>
+<button type="button" onclick="window.location.href=''">Update Profile</button>
+<button type="button" onclick="window.location.href=''">Delete profile</button>
+
+<hr/>
+<h3>Control Cubes</h3>
+<button type="button" onclick="window.location.href='{% url 'list_cubes' %}'">List Of Cubes</button>
+<button type="button" onclick="window.location.href='{% url 'register_cube' %}'">Register Cube</button>
+
+<hr/>
+<h3>List Other Urls</h3>
+<p>
+    <br/> /players/json
+    <br/> /players/jsonparam/<_test_string_>
+    <br/> /players/http
+</p>
+
+
+{% endif %}
+{% endblock content %}
